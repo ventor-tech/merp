@@ -7,12 +7,11 @@ from odoo import models, api, _
 class PickingWave(models.Model):
     _inherit = 'stock.picking.batch'
 
-    @api.multi
     def done_outgoing(self):
         message_obj = self.env['message.wizard']
         behavior = self.env.user.company_id.outgoing_wave_behavior_on_confirm
         remove_not_moved = self.env.user.company_id.outgoing_wave_remove_not_moved
-        if behavior in (0, 1):
+        if int(behavior) in (0, 1):
             # i.e. close pickings in wave with/without creating backorders
             for wave in self:
                 for picking in wave.picking_ids:
@@ -35,13 +34,13 @@ class PickingWave(models.Model):
                     backorder_pick = self.env['stock.picking'].search([('backorder_id', '=', picking.id)])
                     if backorder_pick:
                         backorder_pick.write({'batch_id': False})
-                        if behavior == 1:
+                        if int(behavior) == 1:
                             # i.e. close pickings in wave without creating backorders
                             backorder_pick.action_cancel()
                             picking.message_post(body=_("Back order <em>%s</em> <b>cancelled</b>.") % (backorder_pick.name))
             return super(PickingWave, self).done()
 
-        elif behavior == 2:
+        elif int(behavior) == 2:
             print("We are moving On Hold")
             # i.e. move wave to on hold if not all pickings are confirmed
             message = ''

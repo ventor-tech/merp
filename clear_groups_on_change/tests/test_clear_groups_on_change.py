@@ -19,8 +19,7 @@ class TestClearGroupsOnChange(TransactionCase):
         self.user = self.user_model.create({
             'login': 'testuser',
             'partner_id': self.partner_model.create({
-                'name': u"USER TEST (ROLES)",
-                'notify_email': 'none'
+                'name': "USER TEST (ROLES)",
             }).id,
             'groups_id': [(6, 0, [])],
         })

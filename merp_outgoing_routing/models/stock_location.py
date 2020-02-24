@@ -19,7 +19,6 @@ class StockLocation(models.Model):
         store=False
     )
 
-    @api.multi
     def _compute_outgoing_strategy_sequence(self):
 
         strategy = self.env.user.company_id.outgoing_routing_strategy
@@ -28,7 +27,7 @@ class StockLocation(models.Model):
         if strategy not in self:
             return
 
-        order = '%s %s' % (strategy, ['asc', 'desc'][strategy_order])
+        order = '%s %s' % (strategy, ['asc', 'desc'][int(strategy_order)])
         res = self.search([], order=order)
         for sequence, location in enumerate(res):
             location.strategy_sequence = sequence

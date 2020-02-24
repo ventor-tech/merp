@@ -30,7 +30,6 @@ class PickingWave(models.Model):
         if self.picking_ids:
             self.picking_wave_type = self.picking_ids[0].picking_type_id.id
 
-    @api.multi
     def done(self):
         res = True
         if self.env.context.get('sub_done_called'):
@@ -50,7 +49,6 @@ class PickingWave(models.Model):
 
         return res
 
-    @api.multi
     def confirm_picking(self):
         # This method overried to avoid Exception "Nothing to check the availability for."
         # from module stock model stock.picking method action_assign
@@ -65,17 +63,14 @@ class PickingWave(models.Model):
                     move_ids._action_assign()
         return True
 
-    @api.multi
     def done_incoming(self):
         # override this method in subclasses
         return super(PickingWave, self).done()
 
-    @api.multi
     def done_outgoing(self):
         # override this method in subclasses
         return super(PickingWave, self).done()
 
-    @api.multi
     def done_internal(self):
         # override this method in subclasses
         return super(PickingWave, self).done()
@@ -106,7 +101,6 @@ class StockPicking(models.Model):
         related='first_proc_picking.batch_id.location_id',
     )
 
-    @api.multi
     @api.depends('group_id', 'group_id.picking_ids')
     def _compute_first_proc_picking(self):
         if self.env.context.get('module', '') == 'merp_picking_wave_core':
@@ -136,7 +130,6 @@ class StockPicking(models.Model):
             )
         return picking
 
-    @api.multi
     def write(self, vals):
         res = super(StockPicking, self).write(vals)
         for picking in self:

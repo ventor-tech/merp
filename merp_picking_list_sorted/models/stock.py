@@ -14,7 +14,4 @@ class StockPicking(models.Model):
         strategy = self.env.user.company_id.outgoing_routing_strategy
         strategy_order = self.env.user.company_id.outgoing_routing_order
 
-        return move_line_ids.sorted(
-            key=lambda r: getattr(r.location_id, strategy, 'None'),
-            reverse=strategy_order
-        )
+        return self.sort_operations(move_line_ids, strategy, strategy_order)

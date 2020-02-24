@@ -23,23 +23,12 @@
                         </div>
                         <div class="col-xs-12 col-md-6 o_setting_box">
                             <div class="o_setting_left_pane">
-                                <field name="module_merp_inventory"/>
+                                <field name="module_merp_default_locations"/>
                             </div>
                             <div class="o_setting_right_pane">
-                                <label for="module_merp_inventory"/>
+                                <label for="module_merp_default_locations"/>
                                 <div class="text-muted">
-                                    Enable Advanced Ventor/mERP Inventory Improvements
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-xs-12 col-md-6 o_setting_box">
-                            <div class="o_setting_left_pane">
-                                <field name="module_merp_internal_warehouse"/>
-                            </div>
-                            <div class="o_setting_right_pane">
-                                <label for="module_merp_internal_warehouse"/>
-                                <div class="text-muted">
-                                    Allow to select default warehouse that will be pre-selected for user when using menu "Internal Transfer"
+                                    Enable Advanced Ventor/mERP Locations
                                 </div>
                             </div>
                         </div>
@@ -104,6 +93,17 @@
                                 <label for="module_merp_custom_logotype"/>
                                 <div class="text-muted">
                                     Allows set custom logotype for Ventor/mERP App
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-md-6 o_setting_box">
+                            <div class="o_setting_left_pane">
+                                <field name="module_two_factor_otp_auth"/>
+                            </div>
+                            <div class="o_setting_right_pane">
+                                <label for="module_two_factor_otp_auth"/>
+                                <div class="text-muted">
+                                    Allows to Use Two Factor Authentication
                                 </div>
                             </div>
                         </div>

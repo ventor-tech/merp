@@ -1,20 +1,19 @@
 # Copyright 2019 VentorTech OU
 # Part of Ventor modules. See LICENSE file for full copyright and licensing details.
 
-from odoo import api, models
+from odoo import models
 from odoo.addons.base.models.res_users import get_selection_groups
 
 
 class ResUsers(models.Model):
     _inherit = 'res.users'
 
-    @api.multi
     def write(self, vals):
         group_obj = self.env['res.groups']
         groups_by_application = group_obj.get_groups_by_application()
 
         def find_implied(group):
-            # Recusively find all implied groups
+            # Recursively find all implied groups
             res = []
             for implied in group.implied_ids:
                 res.append(implied)
@@ -25,8 +24,8 @@ class ResUsers(models.Model):
         def update_implied(implied):
             res = {}
             for item in implied:
-                for category, ttype, groups in groups_by_application:  # pylint: disable=W0612
-                    if ttype == 'boolean' and \
+                for category, type, groups, _ in groups_by_application:  # pylint: disable=W0612
+                    if type == 'boolean' and \
                        item.id in [g.id for g in groups]:
                         res.update({'in_group_%s' % item.id: False})
             return res

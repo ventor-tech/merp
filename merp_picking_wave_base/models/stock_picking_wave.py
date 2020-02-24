@@ -23,7 +23,6 @@ class PickingWave(models.Model):
         store=False,
     )
 
-    @api.multi
     @api.depends(
         'picking_ids',
         'picking_ids.move_line_ids',
@@ -36,7 +35,6 @@ class PickingWave(models.Model):
                     res += operation
             rec.related_pack_operations = res
 
-    @api.multi
     @api.depends(
         'picking_ids',
         'picking_ids.move_line_ids',
@@ -48,22 +46,12 @@ class PickingWave(models.Model):
         strategy_order = self.env.user.company_id.outgoing_routing_order
 
         for rec in self:
-            res = self.env['stock.move.line']
-            for picking in rec.picking_ids:
-                res += picking.operations_to_pick
-            rec.operations_to_pick = res.sorted(
-                key=lambda r: getattr(r.location_id, strategy, 'None'),
-                reverse=strategy_order
-            )
-
-            settings = self.env['res.company'].fields_get([
-                'outgoing_routing_strategy',
-                'outgoing_routing_order',
+            picking_ids = rec.picking_ids.ids
+            all_operations = self.env['stock.move.line'].search([
+                ('picking_id', 'in', picking_ids),
             ])
-            strategies = settings['outgoing_routing_strategy']['selection']
-            orders = settings['outgoing_routing_order']['selection']
-
-            rec.strategy_order_r = _('Strategy Order: ') + ', '.join([
-                dict(strategies)[strategy].lower(),
-                dict(orders)[strategy_order].lower()
-            ])
+            rec.strategy_order_r = self.env['stock.picking'].get_strategy_string(strategy,
+                                                                                 strategy_order)
+            rec.operations_to_pick = self.env['stock.picking'].sort_operations(all_operations,
+                                                                               strategy,
+                                                                               strategy_order)
