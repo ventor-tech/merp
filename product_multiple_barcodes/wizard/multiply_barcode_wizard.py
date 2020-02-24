@@ -1,0 +1,39 @@
+# Copyright 2020 VentorTech OU
+# Part of Ventor modules. See LICENSE file for full copyright and licensing details.
+
+from odoo import api, models, fields
+
+
+class MultiplyBarcodeWizard(models.TransientModel):
+
+    _name = 'multiply.barcode.wizard'
+
+    name = fields.Char(
+        string='New Barcode',
+        required=True
+    )
+
+    check_previous_barcode = fields.Boolean(
+        string='Remember previous barcode in "Additional Barcode field"'
+    )
+
+    def update_barcode(self):
+        model_name = self.env.context['active_model']
+        if model_name == 'product.product':
+            product = self.env['product.product'].browse(self.env.context['active_id'])
+        if model_name == 'product.template':
+            product = self.env['product.template'].browse(self.env.context['active_id'])
+
+        if self.check_previous_barcode:
+            product_barcode_multi = self.env['product.barcode.multi'].create({
+                'name': product.barcode,
+                'product_id': product.id,
+            })
+
+            product.write({
+                'barcode': self.name,
+                'barcode_ids': [(4, product_barcode_multi.id)],
+            })
+        else:
+            product.barcode = self.name
+

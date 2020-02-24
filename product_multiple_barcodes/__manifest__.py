@@ -15,6 +15,7 @@
     ],
     'data': [
         'security/ir.model.access.csv',
+        'wizard/multiply_barcode_wizard.xml',
         'views/product_template_views.xml',
     ],
 }
