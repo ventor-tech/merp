@@ -4,7 +4,11 @@
         <field name="name">multiply.barcode.wizard.form</field>
         <field name="model">multiply.barcode.wizard</field>
         <field name="arch" type="xml">
-            <form string="Update Product Barcode" class="stock_analysis_report_generate">
+            <form string="Update Product Barcode">
+                <group>
+                    <p>Use this popup in case you would like to update barcode of current product. It also allows you to record automatically previous barcode into "Barcode Multi" field,
+                        so it will still be searchable and also in this case you will be 100% sure that this barcode will not be used by other products also.</p>
+                </group>
                 <group>
                     <field name="name"/>
                     <field name="check_previous_barcode"/>
