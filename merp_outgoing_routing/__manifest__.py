@@ -14,6 +14,7 @@
         'merp_base',
     ],
     'data': [
+        'data/stock_demo.xml',
         'views/res_config.xml',
         'views/stock.xml',
         'views/picking.xml'

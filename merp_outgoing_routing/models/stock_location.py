@@ -19,7 +19,6 @@ class StockLocation(models.Model):
         store=False
     )
 
-    @api.multi
     def _compute_outgoing_strategy_sequence(self):
 
         strategy = self.env.user.company_id.outgoing_routing_strategy

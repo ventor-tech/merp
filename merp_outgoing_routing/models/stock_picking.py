@@ -18,7 +18,6 @@ class StockPicking(models.Model):
         store=False,
     )
 
-    @api.multi
     @api.depends(
         'move_line_ids',
         'move_line_ids.location_id',

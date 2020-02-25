@@ -16,7 +16,7 @@ class Company(models.Model):
 
     outgoing_routing_order = fields.Selection(
         [
-            (0, 'Ascending (A-Z)'),
-            (1, 'Descending (Z-A)'),
+            ('0', 'Ascending (A-Z)'),   ### NEEED SPEACK  INT TO STR
+            ('1', 'Descending (Z-A)'),  ### NEEEDD SPEACK INT TO STR
         ],
         string='Routing Order', default=0)
