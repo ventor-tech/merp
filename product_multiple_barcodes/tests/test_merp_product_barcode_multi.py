@@ -58,7 +58,7 @@ class TestMerpProductBarcodeMulti(TransactionCase):
 
         self.env['multiply.barcode.wizard'].create({
             'name': new_barcode,
-            'check_previous_barcode': True,
+            'remember_previous_barcode': True,
         }).update_barcode()
 
         self.assertNotEqual(old_barcode, product.barcode)
