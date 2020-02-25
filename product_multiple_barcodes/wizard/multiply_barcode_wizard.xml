@@ -11,7 +11,7 @@
                 </group>
                 <group>
                     <field name="name"/>
-                    <field name="check_previous_barcode"/>
+                    <field name="remember_previous_barcode"/>
                 </group>
                 <footer>
                     <button name="update_barcode" type="object" string="Update Barcode" class="oe_highlight"/>

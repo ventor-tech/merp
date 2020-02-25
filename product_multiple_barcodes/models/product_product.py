@@ -3,7 +3,6 @@
 
 from odoo import models, fields, api, _
 from odoo.osv import expression
-from odoo.exceptions import Warning as UserError
 
 
 class ProductProduct(models.Model):

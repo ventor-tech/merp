@@ -13,7 +13,7 @@ class MultiplyBarcodeWizard(models.TransientModel):
         required=True,
     )
 
-    check_previous_barcode = fields.Boolean(
+    remember_previous_barcode = fields.Boolean(
         string='Remember previous barcode in "Additional Barcode field"',
     )
 
@@ -22,9 +22,11 @@ class MultiplyBarcodeWizard(models.TransientModel):
         if model_name == 'product.product':
             product = self.env['product.product'].browse(self.env.context['active_id'])
         if model_name == 'product.template':
-            product = self.env['product.template'].browse(self.env.context['active_id'])
+            product = self.env['product.template'].browse(
+                self.env.context['active_id']
+            ).product_variant_id
 
-        if self.check_previous_barcode:
+        if self.remember_previous_barcode:
             barcode = product.barcode
             if barcode:
                 product_barcode_multi = self.env['product.barcode.multi'].create({

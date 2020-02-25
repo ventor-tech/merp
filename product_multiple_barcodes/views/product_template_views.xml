@@ -75,7 +75,8 @@
         <field name="arch" type="xml">
                 <header position="inside">
                     <button string="Update Barcode" type="action"
-                        name="%(product_multiple_barcodes.action_multiply_barcode_wizard)d"/>
+                        name="%(product_multiple_barcodes.action_multiply_barcode_wizard)d"
+                        attrs="{'invisible': [('attribute_line_ids', '&lt;=', 0)]}"/>
                 </header>
         </field>
     </record>
