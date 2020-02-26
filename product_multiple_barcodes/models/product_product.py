@@ -12,7 +12,7 @@ class ProductProduct(models.Model):
     barcode_ids = fields.One2many(
         'product.barcode.multi',
         'product_id',
-        string='Additional Barcodes'
+        string='Additional Barcodes',
     )
 
     @api.model
@@ -26,14 +26,19 @@ class ProductProduct(models.Model):
                                   limit=limit, access_rights_uid=name_get_uid)
         return self.browse(product_id).name_get()
 
-    @api.constrains('barcode')
+    @api.constrains('barcode', 'barcode_ids', 'active')
     def _check_unique_barcode(self):
         products = self.env['product.product'].search([
-            ('barcode_ids', '!=', False)
+            '|',
+            ('barcode', '!=', False),
+            ('barcode_ids', '!=', False),
         ])
-        additional_barcode_names = products.barcode_ids.mapped('name')
 
-        if self.barcode in additional_barcode_names:
+        additional_barcode_names = set(products.mapped('barcode_ids.name'))
+        barcode_names = set(products.mapped('barcode'))
+        res = additional_barcode_names & barcode_names
+
+        if res:
             raise UserError(
-                _(f'Barcode {self.barcode} already exists')
+                _('A barcode can only be assigned to one product !')
             )
