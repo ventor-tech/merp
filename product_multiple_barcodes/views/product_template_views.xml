@@ -73,11 +73,16 @@
         <field name="model">product.product</field>
         <field name="inherit_id" ref="product.product_normal_form_view"/>
         <field name="arch" type="xml">
-                <header position="inside">
-                    <button string="Update Barcode" type="action"
-                        name="%(product_multiple_barcodes.action_multiply_barcode_wizard)d"
-                        attrs="{'invisible': [('attribute_line_ids', '&lt;=', 0)]}"/>
-                </header>
+                <field name="barcode" position="replace">
+                    <label for="barcode"/>
+                    <div>
+                        <field name="barcode" string="" class="oe_inline"/>
+                        <button string="Update Barcode" type="action"
+                            name="%(product_multiple_barcodes.action_multiply_barcode_wizard)d"
+                            class="oe_inline"
+                            icon="fa-arrow-right"/>
+                    </div>
+                </field>
         </field>
     </record>
 
@@ -86,11 +91,17 @@
         <field name="model">product.template</field>
         <field name="inherit_id" ref="product.product_template_only_form_view"/>
         <field name="arch" type="xml">
-                <header position="inside">
-                    <button string="Update Barcode" type="action"
-                        name="%(product_multiple_barcodes.action_multiply_barcode_wizard)d"
-                        attrs="{'invisible': [('product_variant_count', '!=', 1)]}"/>
-                </header>
+                <field name="barcode" position="replace">
+                    <label for="barcode"/>
+                    <div>
+                        <field name="barcode" string="" class="oe_inline"/>
+                        <button string="Update Barcode" type="action"
+                            name="%(product_multiple_barcodes.action_multiply_barcode_wizard)d"
+                            class="oe_inline"
+                            icon="fa-arrow-right"
+                            attrs="{'invisible': [('product_variant_count', '!=', 1)]}"/>
+                    </div>
+                </field>
         </field>
     </record>
 

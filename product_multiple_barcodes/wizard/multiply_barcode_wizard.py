@@ -1,7 +1,7 @@
 # Copyright 2020 VentorTech OU
 # Part of Ventor modules. See LICENSE file for full copyright and licensing details.
 
-from odoo import api, models, fields
+from odoo import models, fields
 
 
 class MultiplyBarcodeWizard(models.TransientModel):
@@ -15,6 +15,7 @@ class MultiplyBarcodeWizard(models.TransientModel):
 
     remember_previous_barcode = fields.Boolean(
         string='Remember previous barcode in "Additional Barcode field"',
+        default=True,
     )
 
     def update_barcode(self):

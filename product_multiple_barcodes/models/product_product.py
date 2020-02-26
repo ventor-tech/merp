@@ -3,6 +3,7 @@
 
 from odoo import models, fields, api, _
 from odoo.osv import expression
+from odoo.exceptions import UserError
 
 
 class ProductProduct(models.Model):
@@ -24,3 +25,13 @@ class ProductProduct(models.Model):
         product_id = self._search(expression.AND([domain, args]),
                                   limit=limit, access_rights_uid=name_get_uid)
         return self.browse(product_id).name_get()
+
+    @api.constrains('barcode')
+    def _check_unique_barcode(self):
+        products = self.env['product.product'].with_context(active_test=False).search([])
+        additional_barcode_names = products.barcode_ids.mapped('name')
+
+        if self.barcode in additional_barcode_names:
+            raise UserError(
+                _(f'Barcode {self.barcode} already exists')
+            )
