@@ -28,7 +28,9 @@ class ProductProduct(models.Model):
 
     @api.constrains('barcode')
     def _check_unique_barcode(self):
-        products = self.env['product.product'].with_context(active_test=False).search([])
+        products = self.env['product.product'].search([
+            ('barcode_ids', '!=', False)
+        ])
         additional_barcode_names = products.barcode_ids.mapped('name')
 
         if self.barcode in additional_barcode_names:
