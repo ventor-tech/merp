@@ -40,5 +40,7 @@ class ProductProduct(models.Model):
 
         if res:
             raise UserError(
-                _('A barcode can only be assigned to one product !')
+                _('"The following barcode(s) were found in other active products: {0} .'
+                  '\n Note: That product barcodes should not repeat themselves both in'
+                  ' "Barcode" field and "Additional Barcodes" field.').format(", ".join(res))
             )
