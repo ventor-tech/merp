@@ -3,7 +3,7 @@
 
 {
     'name': 'Ventor Outgoing Routing',
-    "version": "12.0.1.0.0",
+    "version": "13.0.1.0.0",
     'author': 'VentorTech',
     'website': 'https://ventor.tech/',
     'license': 'LGPL-3',
@@ -17,6 +17,6 @@
         'data/stock_demo.xml',
         'views/res_config.xml',
         'views/stock.xml',
-        'views/picking.xml'
+        'views/picking.xml',
     ],
 }

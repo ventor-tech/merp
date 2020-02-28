@@ -15,7 +15,6 @@ class MessageWizard(models.TransientModel):
         res['message'] = self.env.context.get('message')
         return res
 
-    @api.multi
     def wizard_view(self):
         view = self.env.ref('merp_picking_wave.view_message_wizard')
 

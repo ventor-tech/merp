@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="verify_code" name="Verify code">
+        <t t-call="web.login_layout">
+            <div class="container mb-5 pb-5">
+                <div class="text-center small mt-4 pt-3">
+                    <div class="form-group">
+                        <form method="post"
+                                role="form"
+                                t-attf-action="/web/login/{{ '?debug' if debug else '' }}"
+                                onsubmit="this.action = this.action + location.hash">
+                            <div class="form-group">
+                                <h3>
+                                    <label for="otp_code">Security code:</label>
+                                </h3>
+
+                                <input id="otp_code"
+                                        name="otp_code"
+                                        type="text"
+                                        class="form-control"
+                                        placeholder="Enter authentication code"
+                                        required="1"
+                                        autocomplete="off"
+                                        autofocus="autofocus"
+                                />
+                            </div>
+
+                            <p class="alert alert-danger" t-if="error" role="alert">
+                                <t t-esc="error"/>
+                            </p>
+
+
+                            <button type="submit"
+                                    class="btn btn-primary a-submit">
+                                Submit
+                            </button>
+                            <a href="/web/session/logout"
+                                    class="btn btn-danger">
+                                Back
+                            </a>
+
+
+                            <input name="csrf_token"
+                                    type="hidden"
+                                    t-att-value="request.csrf_token()"
+                            />
+                            <input name="login"
+                                    type="hidden"
+                                    t-att-value="login"
+                            />
+                            <input name="password"
+                                    type="hidden"
+                                    t-att-value="password"
+                            />
+                            <input name="qr_code_2fa"
+                                    type="hidden"
+                                    t-att-value="qr_code_2fa"
+                            />
+                            <input name="secret_code_2fa"
+                                    type="hidden"
+                                    t-att-value="secret_code_2fa"
+                            />
+                            <input name="redirect"
+                                    type="hidden"
+                                    t-att-value="redirect"
+                            />
+
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
+
+</odoo>

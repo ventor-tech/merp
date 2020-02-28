@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="scan_code" name="Scan Code">
+        <t t-call="web.login_layout">
+            <div class="container mb-5 pb-5">
+                <div class="text-center small mt-4 pt-3">
+
+                    <form method="post"
+                            role="form"
+                            t-attf-action="/web/login/{{ '?debug' if debug else '' }}"
+                            onsubmit="this.action = this.action + location.hash">
+
+                        <div class="form-group">
+                            <div id="qr-code-2fa">
+                                <t class="img img-fluid mx-auto" t-esc="qr_code_2fa" t-options="{'widget':'image'}"/>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary">Next</button>
+                        <a class="btn btn-danger" href="/web/session/logout">Back</a>
+
+                        <input name="csrf_token"
+                                type="hidden"
+                                t-att-value="request.csrf_token()"
+                        />
+                        <input name="login"
+                                type="hidden"
+                                t-att-value="login"
+                        />
+                        <input name="password"
+                                type="hidden"
+                                t-att-value="password"
+                        />
+                        <input name="qr_code_2fa"
+                                type="hidden"
+                                t-att-value="qr_code_2fa"
+                        />
+                        <input name="secret_code_2fa"
+                                type="hidden"
+                                t-att-value="secret_code_2fa"
+                        />
+                        <input name="redirect"
+                                type="hidden"
+                                t-att-value="redirect"
+                        />
+
+                    </form>
+
+                </div>
+            </div>
+        </t>
+    </template>
+
+</odoo>

@@ -8,10 +8,10 @@ class TestMerpProductBarcodeMulti(TransactionCase):
 
     def setUp(self):
         super(TestMerpProductBarcodeMulti, self).setUp()
-        barcode_1 = self.env['barcode.multi'].create({
+        barcode_1 = self.env['product.barcode.multi'].create({
             'name': 'test001'
         })
-        barcode_2 = self.env['barcode.multi'].create({
+        barcode_2 = self.env['product.barcode.multi'].create({
             'name': 'test002'
         })
         self.product_1 = self.env['product.template'].create({
@@ -23,6 +23,17 @@ class TestMerpProductBarcodeMulti(TransactionCase):
             'name': 'product_2',
             'barcode_ids': [(4, barcode_2.id)]
         })
+        self.product_3 = self.env['product.product'].create({
+            'name': 'product_2',
+            'barcode_ids': [(4, barcode_2.id)]
+        })
+
+        ctx = self.env.context.copy()
+        ctx.update({
+            'active_model': 'product.product',
+            'active_id': self.product_3.id,
+        })
+        self.env.context = ctx
 
     def test_search_by_barcode_multi_product_1(self):
         results = self.env['product.product']._name_search('test001')
@@ -38,3 +49,17 @@ class TestMerpProductBarcodeMulti(TransactionCase):
         results = self.env['product.product']._name_search('test002')
         for res in results:
             self.assertEqual(res[1], 'product_2')
+
+    def test_update_barcode_wizard(self):
+        product = self.product_3
+
+        old_barcode = product.barcode
+        new_barcode = 'test007'
+
+        self.env['multiply.barcode.wizard'].create({
+            'name': new_barcode,
+            'remember_previous_barcode': True,
+        }).update_barcode()
+
+        self.assertNotEqual(old_barcode, product.barcode)
+        self.assertEqual(new_barcode, product.barcode)

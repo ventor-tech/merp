@@ -28,25 +28,38 @@ class StockPicking(models.Model):
         strategy_order = self.env.user.company_id.outgoing_routing_order
 
         for rec in self:
+            all_operations = self.env['stock.move.line'].search([
+                ('picking_id', '=', rec.id),
+            ])
+            rec.strategy_order_r = rec.get_strategy_string(strategy, strategy_order)
+            rec.operations_to_pick = rec.sort_operations(all_operations, strategy, strategy_order)
 
-            res = self.env['stock.move.line']
-            for operation in res.search([('picking_id', '=', rec.id)]):
-                if operation._compute_operation_valid():
-                    res += operation
+    def get_strategy_string(self, strategy, strategy_order):
+        settings = self.env['res.company'].fields_get([
+            'outgoing_routing_strategy',
+            'outgoing_routing_order',
+        ])
+        strategies = settings['outgoing_routing_strategy']['selection']
+        orders = settings['outgoing_routing_order']['selection']
 
-            rec.operations_to_pick = res.sorted(
-                key=lambda r: getattr(r.location_id, strategy, 'None'),
-                reverse=strategy_order
+        result = _('Strategy Order: ') + ', '.join([
+            dict(strategies)[strategy].lower(),
+            dict(orders)[strategy_order].lower()
+        ])
+        return result
+
+    def sort_operations(self, all_operations, strategy, strategy_order):
+        validated_operations = all_operations.filtered(lambda op: op._compute_operation_valid())
+
+        if strategy == 'product':
+            result = validated_operations.sorted(
+                key=lambda op: op.product_id.name,
+                reverse=int(strategy_order)
             )
+            return result
 
-            settings = self.env['res.company'].fields_get([
-                'outgoing_routing_strategy',
-                'outgoing_routing_order',
-            ])
-            strategies = settings['outgoing_routing_strategy']['selection']
-            orders = settings['outgoing_routing_order']['selection']
-
-            rec.strategy_order_r = _('Strategy Order: ') + ', '.join([
-                dict(strategies)[strategy].lower(),
-                dict(orders)[strategy_order].lower()
-            ])
+        result = validated_operations.sorted(
+            key=lambda op: getattr(op.location_id, strategy, 'None'),
+            reverse=int(strategy_order)
+        )
+        return result

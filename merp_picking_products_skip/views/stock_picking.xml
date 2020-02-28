@@ -2,6 +2,22 @@
 <odoo>
 
     <!-- All Operations -->
+    <record id="view_stock_move_line_detailed_operation_tree_products_skip" model="ir.ui.view">
+        <field name="name">stock.move.line.detailed.operation.tree.products.skip</field>
+        <field name="model">stock.move.line</field>
+        <field name="inherit_id" ref="stock.view_stock_move_line_detailed_operation_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//tree" position="attributes">
+                <attribute name="create">false</attribute>
+                <attribute name="delete">false</attribute>
+                <attribute name="edit">false</attribute>
+            </xpath>
+            <xpath expr="//field[@name='qty_done']" position="after">
+                <field name="skipped" />
+            </xpath>
+        </field>
+    </record>
+
     <record id="view_picking_form_products_skip" model="ir.ui.view">
         <field name="name">stock.picking.form.products.skip</field>
         <field name="model">stock.picking</field>
@@ -10,15 +26,6 @@
             <xpath expr="//field[@name='move_line_ids_without_package']/.." position="attributes">
                 <attribute name="attrs">{'invisible': [('move_line_ids_without_package','=',[])]}</attribute>
             </xpath>
-            <xpath expr="//field[@name='move_line_ids_without_package']/tree" position="attributes">
-                <attribute name="create">false</attribute>
-                <attribute name="delete">false</attribute>
-                <attribute name="edit">false</attribute>
-            </xpath>
-            <xpath expr="//field[@name='move_line_ids_without_package']/tree/field[@name='qty_done']" position="after">
-                <field name="skipped" />
-            </xpath>
-            
         </field>
     </record>
 

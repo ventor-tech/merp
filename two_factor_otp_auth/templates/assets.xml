@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf8"?>
+<odoo>
+
+    <template id="assets_frontend" inherit_id="web.assets_frontend" name="Two Factor Auth: Website Assets">
+
+        <xpath expr="link[last()]" position="after">
+            <link rel="stylesheet" type="text/scss" href="/two_factor_otp_auth/static/src/scss/two_factor_otp_auth.scss"/>
+        </xpath>
+
+    </template>
+
+</odoo>

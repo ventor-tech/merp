@@ -31,22 +31,22 @@ class StockConfigSettings(models.TransientModel):
         string='Instant Move',
     )
 
-    module_merp_inventory = fields.Boolean(
-        string='Ventor/mERP Inventory',
-    )
-
     module_merp_custom_logotype = fields.Boolean(
         string='Use Custom Logo',
-    )
-
-    module_merp_internal_warehouse = fields.Boolean(
-        string='Ventor Internal Warehouse',
     )
 
     merp_version = fields.Char(
         string='Ventor/mERP Version',
         compute='_compute_merp_version',
         store=False,
+    )
+
+    module_two_factor_otp_auth = fields.Boolean(
+        string='Use Two Factor Authentication',
+    )
+
+    module_merp_default_locations = fields.Boolean(
+        string='Use Advanced Locations',
     )
 
     @api.depends('company_id')

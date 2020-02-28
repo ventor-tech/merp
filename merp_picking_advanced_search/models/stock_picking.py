@@ -11,7 +11,6 @@ class StockPicking(models.Model):
         'product.product', string='Product Not Moved',
         compute='_compute_products_not_moved', related=False, store=True)
 
-    @api.multi
     @api.depends('move_line_ids.qty_done')
     def _compute_products_not_moved(self):
         for picking in self:

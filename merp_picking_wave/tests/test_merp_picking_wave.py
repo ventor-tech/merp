@@ -73,7 +73,7 @@ class TestMerpPickingWave(TransactionCase):
 
     def test_wave_with_creation_of_backorders_variant_1(self):
         self.env.user.company_id.write({
-            'outgoing_wave_behavior_on_confirm': 0,
+            'outgoing_wave_behavior_on_confirm': '0',
             'outgoing_wave_remove_not_moved': True
         })
         self.stock_picking_1.write({
@@ -84,7 +84,7 @@ class TestMerpPickingWave(TransactionCase):
 
     def test_wave_with_creation_of_backorders_variant_2(self):
         self.env.user.company_id.write({
-            'outgoing_wave_behavior_on_confirm': 0,
+            'outgoing_wave_behavior_on_confirm': '0',
             'outgoing_wave_remove_not_moved': True
         })
         self.stock_picking_1.write({
@@ -95,7 +95,7 @@ class TestMerpPickingWave(TransactionCase):
 
     def test_wave_with_creation_of_backorders_variant_3(self):
         self.env.user.company_id.write({
-            'outgoing_wave_behavior_on_confirm': 0,
+            'outgoing_wave_behavior_on_confirm': '0',
             'outgoing_wave_remove_not_moved': False
         })
         self.stock_picking_1.write({
@@ -104,10 +104,9 @@ class TestMerpPickingWave(TransactionCase):
         self.picking_batch.done_outgoing()
         self.assertEqual(self.stock_picking_1.state, 'done')
 
-
     def test_wave_without_creating_backorders(self):
         self.env.user.company_id.write({
-            'outgoing_wave_behavior_on_confirm': 1
+            'outgoing_wave_behavior_on_confirm': '1'
         })
         self.stock_picking_1.write({
             'move_lines': [(4, self.stock_move_draft[0].id), (4, self.stock_move_draft[1].id)]
@@ -116,10 +115,9 @@ class TestMerpPickingWave(TransactionCase):
         backorder_pick = self.env['stock.picking'].search([('backorder_id', '=', self.stock_picking_1.id)])
         self.assertEqual(backorder_pick.state, 'cancel')
 
-
     def test_move_wave_to_on_hold_variant_1(self):
         self.env.user.company_id.write({
-            'outgoing_wave_behavior_on_confirm': 2
+            'outgoing_wave_behavior_on_confirm': '2'
         })
         self.stock_picking_1.write({
             'move_lines': [(4, self.stock_move_cancel.id)]
@@ -130,7 +128,7 @@ class TestMerpPickingWave(TransactionCase):
 
     def test_move_wave_to_on_hold_variant_2(self):
         self.env.user.company_id.write({
-            'outgoing_wave_behavior_on_confirm': 2
+            'outgoing_wave_behavior_on_confirm': '2'
         })
         self.stock_picking_1.write({
             'move_lines': [(4, self.stock_move_draft[0].id), (4, self.stock_move_draft[1].id)]
@@ -140,7 +138,7 @@ class TestMerpPickingWave(TransactionCase):
 
     def test_move_wave_to_on_hold_variant_3(self):
         self.env.user.company_id.write({
-            'outgoing_wave_behavior_on_confirm': 2
+            'outgoing_wave_behavior_on_confirm': '2'
         })
         self.stock_picking_1.write({
             'move_lines': [(4, self.stock_move_confirmed.id), (4, self.stock_move_assigned.id)]
@@ -156,7 +154,7 @@ class TestMerpPickingWave(TransactionCase):
 
     def test_move_wave_to_on_hold_variant_4(self):
         self.env.user.company_id.write({
-            'outgoing_wave_behavior_on_confirm': 2
+            'outgoing_wave_behavior_on_confirm': '2'
         })
         self.stock_picking_1.write({
             'move_lines': [(4, self.stock_move_confirmed.id), (4, self.stock_move_assigned.id)]
