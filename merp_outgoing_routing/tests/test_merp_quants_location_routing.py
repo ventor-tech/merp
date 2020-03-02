@@ -146,7 +146,7 @@ class TestMerpQuantsLocationRouting(TransactionCase):
         picking_1.action_confirm()
         picking_1.action_assign()
 
-        # Quants must be reserved in Location B (lower removal_location_priority value).
+        # Quants must be reserved in Location B (lower removal_priority value).
         for quant in self.quants:
             if quant.location_id == self.location_A:
                 self.assertEqual(
