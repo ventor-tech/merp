@@ -2,14 +2,21 @@
 # Part of Ventor modules. See LICENSE file for full copyright and licensing details.
 
 from odoo import api, models, fields
-from odoo.exceptions import UserError
 
 
 class StockQuant(models.Model):
     _inherit = 'stock.quant'
 
+    removal_location_prio = fields.Integer(
+        related="location_id.removal_location_prio",
+        store=True,
+    )
+
     @api.model
     def _get_removal_strategy_order(self, removal_strategy):
+        # THIS IS A OVERRIDE STANDARD METHOD
+        strategy_order = self.env.user.company_id.outgoing_routing_order
+
         if removal_strategy == 'location_priority':
-            return 'removal_prio ASC, id'
+            return 'removal_location_prio %s, id' % (['ASC', 'DESC'][int(strategy_order)])
         return super(StockQuant, self)._get_removal_strategy_order(removal_strategy)
