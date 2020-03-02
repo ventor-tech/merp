@@ -7,11 +7,6 @@ from odoo import models, fields, api
 class StockLocation(models.Model):
     _inherit = "stock.location"
 
-    removal_location_prio = fields.Integer(
-        string='Removal Strategy Location Priority',
-        default=0,
-    )
-
     removal_prio = fields.Integer(
         string='Removal Strategy Priority',
         default=0,

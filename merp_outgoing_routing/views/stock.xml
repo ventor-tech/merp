@@ -8,7 +8,6 @@
         <field name="arch" type="xml">
             <xpath expr="//field[@name='complete_name']" position="after">
                 <field name="removal_prio" />
-                <field name="removal_location_prio" />
             </xpath>
         </field>
     </record>
@@ -21,7 +20,6 @@
             <xpath expr="//group" position="inside">
                 <group name="merp">
                     <field name="removal_prio" />
-                    <field name="removal_location_prio" />
                 </group>
             </xpath>
         </field>

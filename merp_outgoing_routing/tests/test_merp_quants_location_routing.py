@@ -45,14 +45,14 @@ class TestMerpQuantsLocationRouting(TransactionCase):
                 'name': 'location_A',
                 'usage': 'internal',
                 'location_id': self.stock.id,
-                'removal_location_prio': 1,
+                'removal_prio': 1,
         })
 
         self.location_B = self.stock_location_model.create({
                 'name': 'Location_B',
                 'usage': 'internal',
                 'location_id': self.stock.id,
-                'removal_location_prio': 0,
+                'removal_prio': 0,
         })
 
         self.stock_2 = self.stock_location_model.create({
@@ -118,13 +118,13 @@ class TestMerpQuantsLocationRouting(TransactionCase):
 
             if quant.location_id == self.location_A:
                 self.assertEqual(
-                    quant.removal_location_prio,
+                    quant.removal_prio,
                     1,
                     'Removal Priority Location must be 1'
                 )
             if quant.location_id == self.location_B:
                 self.assertEqual(
-                    quant.removal_location_prio,
+                    quant.removal_prio,
                     0,
                     'Removal Priority Location must be 0'
                 )
