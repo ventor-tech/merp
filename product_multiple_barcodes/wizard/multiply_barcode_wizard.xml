@@ -6,7 +6,7 @@
         <field name="arch" type="xml">
             <form string="Update Product Barcode">
                 <group>
-                    <p>Use this popup in case you would like to update barcode of current product. It also allows you to record automatically previous barcode into "Barcode Multi" field,
+                    <p>Use this popup in case you would like to update barcode of current product. It also allows you to record automatically previous barcode into "Additional Barcodes" field,
                         so it will still be searchable and also in this case you will be 100% sure that this barcode will not be used by other products also</p>
                 </group>
                 <group>

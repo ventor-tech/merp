@@ -14,7 +14,7 @@ class MultiplyBarcodeWizard(models.TransientModel):
     )
 
     remember_previous_barcode = fields.Boolean(
-        string='Remember previous barcode in "Additional Barcode field"',
+        string='Remember previous barcode in "Additional Barcodes" field',
         default=True,
     )
 
