@@ -32,7 +32,16 @@ class ProductProduct(models.Model):
                                   limit=limit, access_rights_uid=name_get_uid)
         return self.browse(product_id).name_get()
 
-    def _check_duplicate_barcodes(self, barcodes):
+    @api.constrains('barcode', 'barcode_ids', 'active')
+    def _check_unique_barcode(self):
+        products = self.env['product.product'].search([
+            '|',
+            ('barcode', '!=', False),
+            ('barcode_ids', '!=', False),
+        ])
+
+        barcodes = products.mapped('barcode') + products.mapped('barcode_ids.name')
+
         duplicate_barcodes = Counter(barcodes)
         doubles_barcodes = {element: count for element, count in
                               duplicate_barcodes.items() if count > 1}
@@ -44,27 +53,4 @@ class ProductProduct(models.Model):
                   '"Barcode" field and "Additional Barcodes" field.').format(
                         ", ".join(doubles_barcodes.keys())
                   )
-            )
-
-    @api.constrains('barcode', 'barcode_ids', 'active')
-    def _check_unique_barcode(self):
-        products = self.env['product.product'].search([
-            '|',
-            ('barcode', '!=', False),
-            ('barcode_ids', '!=', False),
-        ])
-
-        barcode_names = products.mapped('barcode')
-        self._check_duplicate_barcodes(barcode_names)
-
-        additional_barcode_names = products.mapped('barcode_ids.name')
-        self._check_duplicate_barcodes(additional_barcode_names)
-
-        res = set(additional_barcode_names) & set(barcode_names)
-
-        if res:
-            raise UserError(
-                _('The following barcode(s) were found in other active products: {0} .'
-                  ' Note: That product barcodes should not repeat themselves both in'
-                  '"Barcode" field and "Additional Barcodes" field.').format(", ".join(res))
             )
