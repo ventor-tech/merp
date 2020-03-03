@@ -48,8 +48,8 @@ class ProductProduct(models.Model):
 
         if doubles_barcodes:
             raise UserError(
-                _('The following barcode(s) were found in other active products: {0} .'
-                  ' Note: That product barcodes should not repeat themselves both in'
+                _('The following barcode(s) were found in other active products: {0}.'
+                  '\nNote that product barcodes should not repeat themselves both in '
                   '"Barcode" field and "Additional Barcodes" field.').format(
                         ", ".join(doubles_barcodes.keys())
                   )
