@@ -44,7 +44,7 @@ class ProductProduct(models.Model):
 
         duplicate_barcodes = Counter(barcodes)
         doubles_barcodes = {element: count for element, count in
-                              duplicate_barcodes.items() if count > 1}
+                              duplicate_barcodes.items() if count > 1 and element}
 
         if doubles_barcodes:
             raise UserError(

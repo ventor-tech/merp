@@ -1,3 +1,5 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
 merp_config_user,merp.config user,merp_base.model_merp_config,base.group_user,1,0,0,0
 merp_config_root,merp.config root,merp_base.model_merp_config,base.group_system,1,1,1,1
+access_product_barcode_multi_inventory_manager,product.barcode.multi.inventory.manager,product_multiple_barcodes.model_product_barcode_multi,stock.group_stock_manager,1,1,1,1
+access_product_barcode_multi_sale_manager,product.barcode.multi.root.sale.manager,product_multiple_barcodes.model_product_barcode_multi,sales_team.group_sale_manager,1,1,1,1
