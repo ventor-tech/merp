@@ -13,6 +13,7 @@
     'depends': [
         'base',
         'stock',
+        'sale_management',
     ],
     'data': [
         'security/ir.model.access.csv',

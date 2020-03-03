@@ -9,14 +9,14 @@ class StockLocation(models.Model):
 
     removal_prio = fields.Integer(
         string='Removal Strategy Priority',
-        default=0
+        default=0,
     )
 
     strategy_sequence = fields.Integer(
         string='Sequence',
         help='Sequence based on warehouse location outgoing strategy/order',
         compute='_compute_outgoing_strategy_sequence',
-        store=False
+        store=False,
     )
 
     def _compute_outgoing_strategy_sequence(self):

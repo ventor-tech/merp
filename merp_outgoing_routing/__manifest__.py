@@ -12,8 +12,10 @@
     'summary': 'Adds Outgoing Routing options',
     'depends': [
         'merp_base',
+        'sale_management',
     ],
     'data': [
+        'data/product_removal.xml',
         'views/res_config.xml',
         'views/stock.xml',
         'views/picking.xml',
