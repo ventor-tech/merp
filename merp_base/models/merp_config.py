@@ -7,6 +7,7 @@ from odoo import models, fields, api
 class MerpConfig(models.Model):
     _name = 'merp.config'
     _rec_name = 'key'
+    _description = 'MERP Configuration'
 
     key = fields.Char(required=True, index=True)
     value = fields.Text(required=True)

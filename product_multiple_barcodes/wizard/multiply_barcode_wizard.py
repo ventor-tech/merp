@@ -5,8 +5,8 @@ from odoo import models, fields
 
 
 class MultiplyBarcodeWizard(models.TransientModel):
-
     _name = 'multiply.barcode.wizard'
+    _description = 'Update Product Multiply Barcode Wizard'
 
     name = fields.Char(
         string='New Barcode',
