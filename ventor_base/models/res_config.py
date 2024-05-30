@@ -110,6 +110,8 @@ class VentorConfigSettings(models.TransientModel):
 
         if group_stock_tracking_lot != self.group_stock_tracking_lot:
             operation_type_ids.manage_packages = self.group_stock_tracking_lot
+            operation_type_ids.manage_source_packages = self.group_stock_tracking_lot
+            operation_type_ids.manage_destination_packages = self.group_stock_tracking_lot
             operation_type_ids.show_put_in_pack_button = self.group_stock_tracking_lot
             if not self.group_stock_tracking_lot:
                 operation_type_ids.show_put_in_pack_button = self.group_stock_tracking_lot

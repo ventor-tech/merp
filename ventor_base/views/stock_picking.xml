@@ -21,14 +21,16 @@
                     <field name="scan_destination_location_once"/>
                     <field name="apply_quantity_automatically"/>
                     <field name="is_package_tracking_enabled" invisible='1'/>
-                    <field name="manage_packages" attrs="{'readonly': [('is_package_tracking_enabled','=',False)]}"/>
+                    <field name="manage_packages" attrs="{'readonly': [('is_package_tracking_enabled','=',False)]}" invisible='1'/>
+                    <field name="manage_source_packages" attrs="{'readonly': [('is_package_tracking_enabled','=',False)]}"/>
+                    <field name="manage_destination_packages" attrs="{'readonly': [('is_package_tracking_enabled','=',False)]}"/>
                     <field name="allow_creating_new_packages"
-                           attrs="{'readonly': ['|', ('is_package_tracking_enabled','=',False), ('manage_packages','=',False)]}"/>
+                           attrs="{'readonly': ['|', ('is_package_tracking_enabled','=',False), ('manage_destination_packages','=',False), ('manage_source_packages','=',False)]}"/>
                     <field name="is_consignment_enabled" invisible='1'/>
                     <field name="confirm_source_package"
-                           attrs="{'readonly': ['|', ('is_package_tracking_enabled','=',False), ('manage_packages','=',False)]}"/>
+                           attrs="{'readonly': ['|', ('is_package_tracking_enabled','=',False), ('manage_source_packages','=',False)]}"/>
                     <field name="scan_destination_package"
-                           attrs="{'readonly': ['|', ('is_package_tracking_enabled','=',False), ('manage_packages','=',False)]}"/>
+                           attrs="{'readonly': ['|', ('is_package_tracking_enabled','=',False), ('manage_destination_packages','=',False)]}"/>
                     <field name="manage_product_owner" attrs="{'readonly': [('is_consignment_enabled','=',False)]}"/>
                     <field name="is_stock_production_lot_enabled" invisible='1'/>
                     <field name="apply_default_lots" attrs="{'readonly': [('is_stock_production_lot_enabled','=',False)]}"/>
@@ -64,16 +66,18 @@
                             <field name="apply_quantity_automatically"
                                    attrs="{'readonly':[('confirm_destination_location','!=',True)]}"/>
                             <field name="is_package_tracking_enabled" invisible='1'/>
-                            <field name="manage_packages" attrs="{'invisible': [('is_package_tracking_enabled','=',False)]}"/>
+                            <field name="manage_packages" attrs="{'invisible': [('is_package_tracking_enabled','=',False)]}" invisible='1'/>
+                            <field name="manage_source_packages" attrs="{'invisible': [('is_package_tracking_enabled','=',False)]}"/>
+                            <field name="manage_destination_packages" attrs="{'invisible': [('is_package_tracking_enabled','=',False)]}"/>
                             <field name="allow_creating_new_packages"
-                                   attrs="{'invisible': ['|', ('is_package_tracking_enabled','=',False), ('manage_packages','=',False)],
-                                           'readonly': ['|', ('is_package_tracking_enabled','=',False), ('manage_packages','=',False)]}"/>
+                                   attrs="{'invisible': ['|', ('is_package_tracking_enabled','=',False), ('manage_destination_packages','=',False), ('manage_source_packages','=',False)],
+                                           'readonly': ['|', ('is_package_tracking_enabled','=',False), ('manage_destination_packages','=',False), ('manage_source_packages','=',False)]}"/>
                             <field name="confirm_source_package"
-                                   attrs="{'invisible': ['|', ('is_package_tracking_enabled','=',False), ('manage_packages','=',False)],
-                                           'readonly': ['|', ('is_package_tracking_enabled','=',False), ('manage_packages','=',False)]}"/>
+                                   attrs="{'invisible': ['|', ('is_package_tracking_enabled','=',False), ('manage_source_packages','=',False)],
+                                           'readonly': ['|', ('is_package_tracking_enabled','=',False), ('manage_source_packages','=',False)]}"/>
                             <field name="scan_destination_package"
-                                   attrs="{'invisible': ['|', ('is_package_tracking_enabled','=',False), ('manage_packages','=',False)],
-                                           'readonly': ['|', ('is_package_tracking_enabled','=',False), ('manage_packages','=',False)]}"/>
+                                   attrs="{'invisible': ['|', ('is_package_tracking_enabled','=',False), ('manage_destination_packages','=',False)],
+                                           'readonly': ['|', ('is_package_tracking_enabled','=',False), ('manage_destination_packages','=',False)]}"/>
                             <field name="is_consignment_enabled" invisible='1'/>
                             <field name="manage_product_owner" attrs="{'invisible': [('is_consignment_enabled','=',False)]}"/>
                         </group>

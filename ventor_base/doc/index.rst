@@ -10,6 +10,9 @@ Change Log
 
 |
 
+* 16.0.1.5.1 (2024-05-29)
+    - Split "Show package fields" setting to Show “From Package” field and Show “To Package” field
+
 * 16.0.1.5.0 (2024-05-08)
     - Added warning message when activating the Outgoing Routing checkbox and Picking and Reservation Strategy module not exist in server
     - Removed the dependency between Force pack and Validate uncompleted orders settings

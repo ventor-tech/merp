@@ -6,6 +6,11 @@ Base module that allow relation between Ventor modules
 Changelog
 ---------
 
+16.0.1.5.1 (2024-05-29)
+***********************
+
+* Split "Show package fields" setting to Show “From Package” field and Show “To Package” field
+
 16.0.1.5.0 (2024-05-08)
 ***********************
 
