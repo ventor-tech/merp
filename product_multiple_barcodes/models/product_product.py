@@ -21,14 +21,13 @@ class ProductProduct(models.Model):
     ]
 
     @api.model
-    def _name_search(self, name, args=None, operator='ilike', limit=100, order=None):
-        args = args or []
-        domain = []
+    def _name_search(self, name, domain=None, operator='ilike', limit=None, order=None):
+        domain = domain or []
         if name:
-            domain = ['|', '|', ('name', operator, name), ('default_code', operator, name),
+            barcode_domain = ['|', '|', ('name', operator, name), ('default_code', operator, name),
                       '|', ('barcode', operator, name), ('barcode_ids', operator, name)]
-        return self._search(expression.AND([domain, args]),
-                                  limit=limit, order=order)
+            domain = expression.AND([domain, barcode_domain])
+        return super()._name_search(name, domain=domain, operator=operator, limit=limit, order=order)
 
     @api.constrains('barcode', 'barcode_ids', 'active')
     def _check_unique_barcode(self):
