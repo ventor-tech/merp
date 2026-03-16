@@ -360,3 +360,21 @@ class StockPickingType(models.Model):
                 "quality_check_per_product_line": self.quality_check_per_product_line,
             }
         }
+
+
+class StockPicking(models.Model):
+    _inherit = "stock.picking"
+
+    def get_stock_picking_info(self, **kwargs):
+        result = {}
+        picking = self.search([("id", "=", kwargs.get("picking").get("id"))])
+        if not picking:
+            return result
+        models = {
+            "stock.picking": picking,
+            "stock.move": picking.move_ids_without_package,
+            "stock.move.line": picking.move_line_ids_without_package
+        }
+        for item in models:
+            result[item] = models[item].read(fields=kwargs["picking"][item]["fields"])
+        return result
